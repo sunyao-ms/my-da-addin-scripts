@@ -1,0 +1,2 @@
+CustomFunctions.associate("FILLCOLOR",(async function(o,t){await Excel.run((async a=>{a.workbook.worksheets.getActiveWorksheet().getRange(o).format.fill.color=t,await a.sync()}))}));
+//# sourceMappingURL=functions.js.map
