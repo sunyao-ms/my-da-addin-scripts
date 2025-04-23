@@ -29,10 +29,19 @@ async function addTextToSlide(text) {
 }
 
 async function getWeather() {
-  const response = await fetch('https://api.weather.gov/gridpoints/SEW/131,68/forecast');
-  const data = await response.json();
-  const forecast = data.properties.periods.slice(0, 7).map(x => x.name + ": " + x.detailedForecast).join('\n');
-  return forecast;
+  await Excel.run(async (context) => {
+    const sheet = context.workbook.worksheets.getActiveWorksheet();
+    const range = sheet.getRange("A1");
+    range.formulas = [["=CFONLY.ADD(1, 2)"]];
+    range.format.autofitColumns();
+    range.format.autofitRows();
+    await context.sync();
+    console.log("Custom function ADD inserted into cell A1.");
+  });
+  // const response = await fetch('https://api.weather.gov/gridpoints/SEW/131,68/forecast');
+  // const data = await response.json();
+  // const forecast = data.properties.periods.slice(0, 7).map(x => x.name + ": " + x.detailedForecast).join('\n');
+  // return forecast;
 }
 
 async function insertAddFunction() {
